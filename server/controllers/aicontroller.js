@@ -164,6 +164,85 @@ export const generateImage = async (req, res) => {
 };
 
 
+export const removeImageBG = async (req, res) => {
+  try {
+
+    const { userId } = await req.auth();   // FIX
+    const { image} = req.file;
+
+    const plan = req.plan; 
+
+    //only for premium users 
+
+    if (!prompt) {
+      return res.json({ success: false, message: "Prompt required" });
+    }
+
+    if (plan !== 'premium') {
+      return res.json({ success: false, message: "limit reached" });
+    }
+
+    const {secure_url}=await cloudinary.uploader.upload(image.path,{
+        transformation:[{
+            effect:'background_removal',
+            background_removal:'remove the background'
+        }]
+    })
+
+
+
+    await sql`
+      INSERT INTO creations (user_id,prompt,content,type)
+      VALUES(${userId}, 'Remove Background from the image', ${secure_url}, 'image')
+    `;
+
+    res.json({ success: true, content:secure_url });
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export const removeImageOBJ = async (req, res) => {
+  try {
+
+    const { userId } = await req.auth();   // FIX
+    const { object } =  req.body;   // FIX
+    const { image} = req.file;
+    const plan = req.plan; 
+
+    //only for premium users 
+
+    if (!prompt) {
+      return res.json({ success: false, message: "Prompt required" });
+    }
+
+    if (plan !== 'premium') {
+      return res.json({ success: false, message: "limit reached" });
+    }
+
+    const {public_id}=await cloudinary.uploader.upload(image.path)
+
+    const ImageUrl = cloudinary.url(public_id,{
+        transformation:[{effect:`gen_remove:${object}`}],
+        resource_type:'image'
+    })
+
+
+
+    await sql`
+      INSERT INTO creations (user_id,prompt,content,type)
+      VALUES(${userId}, ${`Removed ${object} from image`}, ${ImageUrl}, 'image')
+    `;
+
+    res.json({ success: true, content:ImageUrl });
+
+  } catch (error) {
+    console.log(error.message);
+    res.json({ success: false, message: error.message });
+  }
+};
 
 
 
