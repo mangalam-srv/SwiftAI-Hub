@@ -6,6 +6,7 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 import FormData from "form-data";
 import { createRequire } from "module";
+import Groq from "groq-sdk";
 
 const require = createRequire(import.meta.url);
 const pdf = require("pdf-parse");
@@ -13,6 +14,10 @@ const pdf = require("pdf-parse");
 const AI = new OpenAI({
   apiKey: process.env.GEMINI_API_KEY,
   baseURL: "https://generativelanguage.googleapis.com/v1beta/openai/"
+});
+
+const groq = new Groq({
+  apiKey: process.env.GROQ_API_KEY
 });
 
 
@@ -37,15 +42,15 @@ export const generateArticle = async (req, res) => {
       return res.json({ success: false, message: "limit reached" });
     }
 
-    const response = await AI.chat.completions.create({
-      model: "gemini-3-flash-preview",
-      messages: [
-        { role: "system", content: "You are an expert blog writer." },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: length || 800
-    });
+    const response = await groq.chat.completions.create({
+  model: "llama-3.1-8b-instant",
+  messages: [
+    { role: "system", content: "You are an expert blog writer." },
+    { role: "user", content: prompt }
+  ],
+  temperature: 0.7,
+  max_tokens: Math.min(length, 500)
+});
 
     const content = response.choices[0].message.content;
 
@@ -90,14 +95,26 @@ export const generateBlogTitle = async (req, res) => {
       return res.json({ success: false, message: "limit reached" });
     }
 
-    const response = await AI.chat.completions.create({
-      model: "gemini-3-flash-preview",
-      messages: [
-        { role: "system", content: "Generate creative blog titles." },
-        { role: "user", content: prompt }
-      ],
-      max_tokens: 100
-    });
+const response = await groq.chat.completions.create({
+  model: "llama-3.1-8b-instant",
+  messages: [
+    {
+      role: "system",
+      content: `
+Return 10 blog titles in Markdown bullet list format.
+
+Example:
+
+### Blog Title Ideas
+- Title 1
+- Title 2
+- Title 3
+`
+    },
+    { role: "user", content: prompt }
+  ],
+  max_tokens: 150
+});
 
     const content = response.choices[0].message.content;
 
