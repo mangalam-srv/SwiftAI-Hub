@@ -35,7 +35,7 @@ export const toggleLikeCreation = async(req,res)=>{
         const {id} = req.body;
 
         const [creation] = await sql`SELECT * FROM creations WHERE id = ${id}`
-        if(!creations){
+        if(!creation){
             return res.json({success:false , messsage:"creation not found"})
         }
 
@@ -52,7 +52,7 @@ export const toggleLikeCreation = async(req,res)=>{
             message='creation Liked'
         }
 
-        const formattedArray = `{${updatedLikes.join(',')}`
+        const formattedArray = `{${updatedLikes.join(',')}}`
 
         await sql`UPDATE creations SET likes=${formattedArray}::text[] WHERE id=${id}`
         
