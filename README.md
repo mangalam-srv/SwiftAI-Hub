@@ -1,110 +1,8 @@
-## 🔍 DEEP CODE ANALYSIS
-
-### 1. Repository Classification
-**Classification:** Application/Web App
-
-**Reasoning:** The repository clearly distinguishes between a `client` and a `server` directory at the root level. This strongly indicates a full-stack web application architecture, where `client` houses the frontend and `server` hosts the backend API.
-
-### 2. Technology Stack Detection
-
-Based on the repository structure (`client/` and `server/`), the declared `JavaScript` language, and common development patterns for "AI Hub" applications, the following technologies are detected/inferred:
-
-**Frontend Technologies (inferred from `client/` directory):**
--   **Frameworks:** React.js (highly probable for modern JavaScript frontend applications, often paired with a build tool like Vite).
--   **Build Tools:** Vite (common in modern React setups for fast development).
--   **Styling:** Tailwind CSS (a popular utility-first CSS framework often used for rapid UI development), standard CSS.
--   **State Management:** React Context API or a lighter library like Zustand (common in modern React apps).
-
-**Backend Technologies (inferred from `server/` directory):**
--   **Runtime:** Node.js (explicitly stated via `language: JavaScript`).
--   **Frameworks:** Express.js (the most common minimalist web framework for Node.js).
--   **Databases:** MongoDB (a popular NoSQL database often used with Node.js in MERN-like stacks).
--   **ORM/ODM:** Mongoose (a widely used ODM for MongoDB in Node.js environments).
--   **Authentication:** JWT (JSON Web Tokens for stateless authentication), bcrypt (for password hashing).
-
-**DevOps & Tools:**
--   **Containerization:** Docker (common for deploying full-stack applications, a `Dockerfile` would typically be found in the `server` directory or root).
--   **Version Control:** Git, GitHub.
-
-### 3. Project Structure Analysis
-
-The repository adopts a clear monorepo-like structure, separating frontend and backend logic into distinct directories.
-
--   **`project-root/`**
-    -   **`.gitignore`**: Specifies files and directories to be ignored by Git (e.g., `node_modules`, `.env`, build outputs).
-    -   **`README.md`**: This main documentation file.
-    -   **`client/`**: This directory encapsulates the entire frontend application.
-        -   **Expected Contents:**
-            -   `public/`: Static assets (e.g., `index.html`, `favicon.ico`).
-            -   `src/`: Primary source code for the React application.
-                -   `components/`: Reusable UI components.
-                -   `pages/` or `views/`: Top-level components representing application pages/routes.
-                -   `assets/`: Images, icons, local fonts.
-                -   `utils/`: Helper functions.
-                -   `styles/`: Global styles or Tailwind CSS configuration.
-                -   `App.jsx/tsx`: Main application component.
-                -   `main.jsx/tsx`: Entry point for the React application.
-            -   `package.json`: Frontend dependencies and scripts.
-            -   `vite.config.js/ts`: Vite build configuration.
-            -   `.env` / `.env.example`: Frontend environment variables.
-    -   **`server/`**: This directory contains the backend API.
-        -   **Expected Contents:**
-            -   `index.js` or `server.js`: Main entry point for the Node.js Express server.
-            -   `config/`: Database connection, environment variables configuration.
-            -   `routes/`: API endpoint definitions (e.g., `auth.js`, `ai.js`).
-            -   `controllers/`: Logic for handling API requests.
-            -   `models/`: Mongoose schemas and models for MongoDB.
-            -   `middleware/`: Express middleware (e.g., authentication, error handling).
-            -   `utils/`: Server-side utility functions.
-            -   `package.json`: Backend dependencies and scripts.
-            -   `.env` / `.env.example`: Backend environment variables.
-
-### 4. Feature Extraction
-
-Based on the name "SwiftAI-Hub" and the full-stack structure, the project likely offers the following core functionalities:
-
--   **User Authentication & Authorization**: Secure user registration, login, and session management (JWT-based).
--   **AI Interaction Interface**: A user-friendly frontend to interact with various AI models/services. This could include:
-    -   Text Generation (e.g., articles, creative content, code snippets).
-    -   Image Processing/Generation (e.g., style transfer, image creation).
-    -   Chatbot Integration (conversational AI).
-    -   Data Analysis/Visualization (using AI models).
--   **AI API Backend**: A robust Node.js/Express API serving as an intermediary between the frontend and external AI services (e.g., OpenAI, Hugging Face, custom models).
--   **User Dashboard**: Personalized space for users to view their interaction history, manage settings, or save AI-generated content.
--   **Data Persistence**: Storage of user information, AI interaction logs, and generated content in a MongoDB database.
--   **Responsive Design**: A UI that adapts to various screen sizes (desktop, tablet, mobile) for optimal user experience.
-
-**Environment Variables (Expected):**
--   `client/.env`: `VITE_API_BASE_URL`, `VITE_SOME_AI_API_KEY`
--   `server/.env`: `PORT`, `MONGO_URI`, `JWT_SECRET`, `AI_API_KEY` (for external AI services)
-
-### 5. Installation & Setup Detection
-
--   **Package Manager:** `npm` (most common for JavaScript projects) or `yarn`.
--   **Installation Commands:**
-    -   For both `client/` and `server/`: `npm install` or `yarn install` to resolve project-specific dependencies.
--   **Build Processes:**
-    -   Frontend: `npm run build` or `yarn build` (within `client/`) to create a production-ready static bundle.
--   **Development Server Setup:**
-    -   Frontend: `npm run dev` or `yarn dev` (within `client/`) to start the Vite development server.
-    -   Backend: `npm start` or `npm run dev` (within `server/`, often using `nodemon`) to start the Express server.
--   **Environment Requirements:**
-    -   Node.js (LTS version, e.g., 18.x or 20.x).
-    -   MongoDB instance (local or hosted, e.g., MongoDB Atlas).
--   **External Service Dependencies:** API keys for AI services (e.g., OpenAI, Google AI Studio, custom LLMs) are crucial and need to be configured via environment variables.
-
----
 
 ## 🚀 SwiftAI-Hub
 
 <div align="center">
 
-<!-- TODO: Add project logo -->
-
-[![GitHub stars](https://img.shields.io/github/stars/mangalam-srv/SwiftAI-Hub?style=for-the-badge)](https://github.com/mangalam-srv/SwiftAI-Hub/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/mangalam-srv/SwiftAI-Hub?style=for-the-badge)](https://github.com/mangalam-srv/SwiftAI-Hub/network)
-[![GitHub issues](https://img.shields.io/github/issues/mangalam-srv/SwiftAI-Hub?style=for-the-badge)](https://github.com/mangalam-srv/SwiftAI-Hub/issues)
-[![GitHub license](https://img.shields.io/github/license/mangalam-srv/SwiftAI-Hub?style=for-the-badge)](LICENSE)
 
 **A full-stack AI-powered platform for seamless interaction with various artificial intelligence services.**
 
@@ -128,12 +26,7 @@ SwiftAI-Hub is a robust, full-stack web application designed to provide a centra
 -   🚀 **Scalable Backend API**: A powerful Node.js/Express API facilitating communication with external AI services.
 -   📱 **Responsive Design**: Optimized user experience across all devices, from desktops to mobile phones.
 
-## 🖥️ Screenshots
 
-<!-- TODO: Add actual screenshots of the application (e.g., homepage, AI interaction screen, dashboard) -->
-<!-- ![Screenshot 1](path-to-screenshot-1.png) -->
-<!-- ![Screenshot 2](path-to-screenshot-2.png) -->
-<!-- ![Screenshot 3](path-to-screenshot-3.png) -->
 
 ## 🛠️ Tech Stack
 
